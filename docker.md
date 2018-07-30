@@ -1,0 +1,4 @@
+### Projects overview and needs
+The "Healthy Digital House" (Tervelinen Digitalo) project and the TOE-hanke project involves significant amount IOT data (Big Data) and datasources. The needs for storage, data handling, visulisation and demonstration require a flexible and robust solution. In terms of flexibility, the system has to receive and deploy apps which are prone to continuos update releases with zero downtime. In terms of robustness, the system should be capable of self-healing and fault-tolerance in case of hardware failures, e.g. A malfunctioned server node in a cluster. These features are so important for an orchestration system as not only do they close the gap between Dev and Ops (Development and Operations) to improve the overall workflow, but also managing and maintenance work are carried out with increased efficiency.
+
+### Software solutions
