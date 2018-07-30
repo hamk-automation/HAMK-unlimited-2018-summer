@@ -14,7 +14,11 @@ VM vs Docker
     - ~~Docker client~~
     - ~~Docker registry~~ 
 
-- Bind mounts and volumes
+- Data storage with Docker
+    - ~~Container and image layers~~
+    - TMPFS Mounts
+    - Bind mounts
+    - Volumes
 - Port mapping, networking
 - Services, clutering and security.
 ### How to use/build own docker images
