@@ -21,3 +21,8 @@ Pics or no deal xD
 # Dat
 ### Project overview and needs
  
+### Software solutions
+
+### Docker architecture concepts 
+
+### How to use/build own docker images
