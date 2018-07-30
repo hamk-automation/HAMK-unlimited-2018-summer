@@ -1,21 +1,25 @@
-### Project overview and needs
-Digitalo and TOE hanke involves multiple IoT data sources, needs storage, visualization and demonstration
+### ~~Project overview and needs~~
+~~Digitalo and TOE hanke involves multiple IoT data sources, needs storage, visualization and demonstration~~
 ### Software solutions
 VM vs Docker
+
 ### Docker architecture concepts 
-- System architechture
-    - Dockerhost:
-        - Docker daemon
-        - Docker objects:
-            - Docker images
-            - Docker containers
+ 
+- ~~System architechture~~
+    - ~~Dockerhost:~~
+        - ~~Docker daemon~~
+        - ~~Docker objects:~~
+            - ~~Docker images~~
+            - ~~Docker containers~~
+    - ~~Docker client~~
+    - ~~Docker registry~~ 
+
 - Bind mounts and volumes
 - Port mapping, networking
 - Services, clutering and security.
 ### How to use/build own docker images
 - Image and container layers
 - Dockerfile
-- Image registry
 - Building and running the app
 - Persistence and non-persistance containers
 ### Use case - HAMK iot.research.hamk.fi
