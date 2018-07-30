@@ -20,9 +20,14 @@ Pics or no deal xD
 
 # Dat
 ### Project overview and needs
- 
+Digitalo and TOE hanke involves multiple IoT data sources, needs storage, visualization and demonstration
 ### Software solutions
-
+VM, Docker vs apt
 ### Docker architecture concepts 
-
+Docker file, file mapping, volume mapping, port mapping, networking
 ### How to use/build own docker images
+
+### Use case - HAMK iot.research.hamk.fi
+Docker used for service testing 
+1. LDAP login integrations
+2. Web apps deployment
