@@ -14,18 +14,12 @@ VM vs Docker
     - ~~Docker client~~
     - ~~Docker registry~~ 
 
-- Data storage with Docker
+- ~~Data storage with Docker~~
     - ~~Container and image layers~~
-    - TMPFS Mounts
-    - Bind mounts
-    - Volumes
+    - ~~Bind mounts and volumes~~
 - Port mapping, networking
 - Services, clutering and security.
-### How to use/build own docker images
-- Image and container layers
-- Dockerfile
-- Building and running the app
-- Persistence and non-persistance containers
+
 ### Use case - HAMK iot.research.hamk.fi
 Docker used for service testing
 1. LDAP login integrations
