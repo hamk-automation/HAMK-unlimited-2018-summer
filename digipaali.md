@@ -1,6 +1,6 @@
 # Digipaali – Tehokkuutta rehupaalien elinkaaren hallintaan.
 
-<div style="text-align:center"><img src ="https://www.digipaali.fi/wp-content/themes/reykjavik-child/img/logo-fi.png" alt="NordicID reader"  /></div>
+<div style="text-align:center"><img src ="logo.png" alt="logo"/></div>
 
 * ## Overviews
   Digitalization has not previously been applied in any hay bale marking and information handling. Normally, groups of bales are distinguished using different colour plastic covers, and sprays. This manual process is, without a doubt, time-consuming and inefficient. In addition to that, bales storage and trading are problems farmers have to deal with. Digipaali (Digibale) project take the advantages of information technology in general, Internet of Things (IoT) in particular, to reduce the unnecessary hard work and improve process performance. Standing in the heart of the project is Radio Frequency Identification (RFID), of which tags will be attached to bales. Users can then read bale data, e.g. temperature, humidity, GPS-data via smartphone with special readers, and make transaction on an open e-marketplace. The main point of the project lays on the stage where RFID tags are attached, and information is collected. This is done using designed box containing RFID readers, sensors, Arduino, Raspberry Pi, 4G modem, and power inverter.
