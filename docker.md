@@ -54,7 +54,7 @@ Docker Objects are contents managed by Docker daemon. This section will cover on
   - Containers are executable image instances, hence the ability to start, stop, delete or even exec into a running instance via Docker CLI or API. [[a]](https://docs.docker.com/engine/docker-overview/#docker-objects)
 
   - Containers characteristic
-    - _Lightweight_: Containers are just very lightweight VM instances, with a file system and limited methods for running images. They can be deployed in just matter of seconds. [[a]]()
+    - _Lightweight_: Containers are just very lightweight VM instances, with a file system and limited methods for running images. They can be deployed in just matter of seconds. [[a]](https://www.aquasec.com/wiki/display/containers/Docker+Architecture)
 
     - _Standard_: Unlike VM instances, containers are both hypervisor and OS independent. Containers can be deployed across multiple platforms and infrastructure, and yet they will function the same in every environment.
 
@@ -66,7 +66,7 @@ Docker Objects are contents managed by Docker daemon. This section will cover on
 User communicate with Docker daemon from Docker client via either Docker CLI (on same host as Docker daemon) or Docker API (on remote host). Connection from client to more than one daemon is possible.
 
 ### __Image Registries__
-Images can be shared and pulled from Docker Registries, which is Docker Hub by default. Using other public and/or private registry is also possible.
+Images can be shared and download from Docker Registries, which is Docker Hub by default. Using other public and/or private registry is also possible.
 
 An image is pulled with a ```docker pull``` command or with ```docker run``` if the image is not yet existed on local machine. An image is pushed to the referred registry with a ```docker push``` command.
 
