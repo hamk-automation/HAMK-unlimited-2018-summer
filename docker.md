@@ -30,9 +30,9 @@ Docker Objects are contents managed by Docker daemon. This section will cover on
 
 - #### Images
 
-  - Images reprensent the whole application (file system, libraries). Images can only run as containers, thus they are also template for constructing containers.
+  - Images reprensent the whole application (file system, libraries). Images can only run as containers, thus they are also template for constructing containers. 
 
-  - An image is usually built from a Dockerfile, which contains a set of commands to construct the app, e.g. create files, install libraries. Afterwards, an image is then compressed into a stack of read-only layers.
+  - An image is usually built from a Dockerfile, which contains a set of commands to construct the app, e.g. create files, install libraries. Afterwards, an image is then compressed into a stack of read-only layers. [[a]](https://www.aquasec.com/wiki/display/containers/Docker+Images+101)
 
     ![image layers](https://docs.docker.com/storage/storagedriver/images/container-layers.jpg)  
 
@@ -53,13 +53,14 @@ Docker Objects are contents managed by Docker daemon. This section will cover on
 
   - Containers are executable image instances, hence the ability to start, stop, delete or even exec into a running instance via Docker CLI or API. [[a]](https://docs.docker.com/engine/docker-overview/#docker-objects)
 
-  - Containers are just very light-weighted VM instances, with a file system and limited methods for running images. They can be deployed in just matter of seconds. [[a]]()
+  - Containers characteristic
+    - _Lightweight_: Containers are just very lightweight VM instances, with a file system and limited methods for running images. They can be deployed in just matter of seconds. [[a]]()
 
-  - Containers can store data on their writable image layer. This layer will disappear when container is removed. More detailed discussions in [this section](). Thus, new images can be built upon different state of a container.
+    - _Standard_: Unlike VM instances, containers are both hypervisor and OS independent. Containers can be deployed across multiple platforms and infrastructure, and yet they will function the same in every environment.
 
-  - Containers' subsystems such as network, storage define how isolated a container is to other containers and to the host machine. All of which can be configured by defining flags when a container is started or created.
+    - _Secure_: Containers' subsystems such as network, storage define how isolated a container is to other containers and to the host machine. All of which can be configured by defining flags when a container is started or created.
 
-    An example run command including explanation can be found [here](https://docs.docker.com/engine/docker-overview/#docker-objects)
+      An example run command including explanation can be found [here](https://docs.docker.com/engine/docker-overview/#docker-objects)
 
 ### __Docker Client__
 User communicate with Docker daemon from Docker client via either Docker CLI (on same host as Docker daemon) or Docker API (on remote host). Connection from client to more than one daemon is possible.
