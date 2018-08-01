@@ -1,7 +1,9 @@
 ### ~~Project overview and needs~~
 ~~Digitalo and TOE hanke involves multiple IoT data sources, needs storage, visualization and demonstration~~
 ### Software solutions
-VM vs Docker
+VM and containers
+- ~~The difference~~
+- Integrating VMs and containers
 
 ### Docker architecture concepts 
  
