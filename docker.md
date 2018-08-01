@@ -66,10 +66,6 @@ This whole concept (including docker daemon and its interfaces) is called Docker
 
 _Figure 2. Docker engine [(source)](https://docs.docker.com/engine/images/engine-components-flow.png)_
 
-## Our preferred solution
-
-Currently, our production server 
-
 ### Docker Objects
 Docker Objects are contents managed by Docker daemon. This section will cover only the basics of the two important concepts: images and containers. 
 
