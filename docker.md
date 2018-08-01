@@ -1,9 +1,14 @@
 # Projects overview and needs
-The "Healthy Digital House" (Terveellinen Digitalo) project and the TOE-hanke project involves significant amount IOT data (Big Data) and datasources. The needs for storage, data handling, visulisation and demonstration require a flexible and robust solution. In terms of flexibility, the system has to receive and deploy apps which are prone to continuos update releases with zero downtime. In terms of robustness, the system should be capable of self-healing and fault-tolerance in case of hardware failures, e.g. A malfunctioned server node in a cluster. In terms of both robustness and flexibility, applications within the system should be well isolated for better security, but they should still be able to communicate data if necessary.
 
-One important aspect of these projects so far is scalability. For now, both projects are using only one server with one OS instance. In the past, scalling this server was only done vertically, which means adding more capacity and memory within one OS. Since all of our applications are also within that OS, we have no problem giving them more space. However, as our project grows, so does our ways of expanding our server. Cloud storage and horizontal scalling are next two options. Cloud storage demands less infrastructure, but yet it provides as much as the service provides, while horizontal scalling involves joining multiple server into one cluster. Applications should now be able to allocate on any machine within a cluster or in a remote machine and still have access to all the data they need if necessary. The answer to this challenge raise the need for an orchestration system.
+## Motivations
 
-These mentioned features of an orchestration system is important as not only do they close the gap between Dev and Ops (Development and Operations) to improve the overall workflow, but also managing and maintenance work are carried out with increased efficiency. However, since our current server is still young and expansion is yet to come, orchestration will not be our main target. Instead, this document focuses on a more basic level: containerizing application.
+The "Healthy Digital House" (Terveellinen Digitalo) project and the TOE-hanke project involves significant amount IOT data (Big Data) and datasources. The two projects involves an application base solution which includes storage, data handling, visulization and demonstrations. This application is a combined of several microservices which run on our local server. In the past and just until the last couple of months, our productions server were just two small machines sitting in an office in Valkeakoski. As a new physical server was installed in HAMK's Datacenter located in Hämeenlinna, we have to come up with a system that should not only be able to migrate our existing programs with most of their data, but also provide us a better way of managing our micro services.
+
+## Our needs
+
+One important aspect we are heading for is scalability. For now, both projects are using only one server with one OS instance. In the past, scalling this server was only done vertically, which means adding more capacity and memory within one OS. Since all of our applications are also within that OS, we have no problem giving them more space. However, as our project grows cloud storage and horizontal scalling are the next two options. Cloud storage demands less infrastructure, but yet it provides as much as the service provides, while horizontal scalling involves joining multiple server into one cluster. Applications should now be able to allocate on any machine within a cluster or in a remote machine and still have access to all the data they need if necessary. This challenge raises the need for containerized applications and an orchestration system.
+
+Container is an amazing technology, because they are flexible and robust. Containerized apps are deployed within seconds, and they function regardless of the environment and infrastructure we provide. In an ideal situation, all of our containerize apps would be stateless, meaning they do not contain any data, but rather all data is stored somewhere else. Only these data need to be migrated for our migration task to complete. Containerized apps is also the answer for an improved and optimized workflow. Since containers can be shared and deployed quickly, they close the gap between Dev and Ops (Development and Operations). At the time of writing this document, our current server is still young and expansion is yet to come, thus orchestration will not be our main target. Instead, we focus on bringing a closer look on containerizing apps.
 
 # Software solutions
 
@@ -41,6 +46,10 @@ Although they have many drawbacks, VMs are still an efficient yet reliable optio
 
 _Figure 2. Containers on VMs [(source)](https://www.docker.com/sites/default/files/containers-vms-together.png)_
 
+## Our preferred solution
+
+At the start of this project, our production server at HAMK Valkeakoski was already hosting multiple services
+
 # Docker architecture concepts
 
 ## System architecture
@@ -56,6 +65,10 @@ This whole concept (including docker daemon and its interfaces) is called Docker
 ![Image of Docker Engine](https://docs.docker.com/engine/images/engine-components-flow.png)
 
 _Figure 2. Docker engine [(source)](https://docs.docker.com/engine/images/engine-components-flow.png)_
+
+## Our preferred solution
+
+Currently, our production server 
 
 ### Docker Objects
 Docker Objects are contents managed by Docker daemon. This section will cover only the basics of the two important concepts: images and containers. 
