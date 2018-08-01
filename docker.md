@@ -3,13 +3,30 @@ The "Healthy Digital House" (Terveellinen Digitalo) project and the TOE-hanke pr
 
 One important aspect of these projects so far is scalability. For now, both projects are using only one server with one OS instance. In the past, scalling this server was only done vertically, which means adding more capacity and memory within one OS. Since all of our applications are also within that OS, we have no problem giving them more space. However, as our project grows, so does our ways of expanding our server. Cloud storage and horizontal scalling are next two options. Cloud storage demands less infrastructure, but yet it provides as much as the service provides, while horizontal scalling involves joining multiple server into one cluster. Applications should now be able to allocate on any machine within a cluster or in a remote machine and still have access to all the data they need if necessary. The answer to this challenge raise the need for an orchestration system.
 
-These mentioned features of an orchestration system is important as not only do they close the gap between Dev and Ops (Development and Operations) to improve the overall workflow, but also managing and maintenance work are carried out with increased efficiency.
-
-
+These mentioned features of an orchestration system is important as not only do they close the gap between Dev and Ops (Development and Operations) to improve the overall workflow, but also managing and maintenance work are carried out with increased efficiency. However, since our current server is still young and expansion is yet to come, orchestration will not be our main target. Instead, this document focuses on a more basic level: containerizing application.
 
 # Software solutions
 
+## Virtual machines (VM) and containers
+![VMs and containers](https://twistlock2.wpengine.com/wp-content/uploads/2017/01/ContainerVsVM-1024x567.jpg)
 
+### The difference
+The two concept is best visulize by an analogy, as this [ebook](https://goto.docker.com/rs/929-FJL-178/images/Docker-for-Virtualization-Admin-eBook.pdf?mkt_tok=eyJpIjoiWm1FM09HRTROREF5TW1abSIsInQiOiJGcnJNQWFQRWVTSEh1YjBnanJIc0hVOWV5R2pneW5GSVY0dGF1VzNZdjhESUdQZkcxQ2g3S2ZQWDc1Q2JQYjB4bFYrTkVPZ2pxbis1OXlQUUVtcTNHT1k1WFFTUUErVVJOTHVGTGV3eHE5M3RabUxhbkIzc1FlNHpGMXVGRTlITyJ9) [[a]]() from Docker suggest: 
+
+>"The analogy we
+use here at Docker is comparing houses (virtual machines) to
+apartments (Docker containers)." (Docker, 2016)
+
+Virtual machines as houses are well protected against unwanted guests and have their own infrastructures. Since VMs are built from fully powered operating system, quite often they are under used in smaller projects, and excessive feature might not be possible to remove.
+
+Containers, represented by apartments, also provide protection, but they also share the same underlying infrastructure (provided by the Docker host) such as electricity, water, gas, etc. Containers are buitl with the opposite direction of VMs, in which they only get what developers need.
+
+It is important to set a clear mind, that "Containers are not VMs" [[a]](https://goto.docker.com/rs/929-FJL-178/images/Docker-for-Virtualization-Admin-eBook.pdf?mkt_tok=eyJpIjoiWm1FM09HRTROREF5TW1abSIsInQiOiJGcnJNQWFQRWVTSEh1YjBnanJIc0hVOWV5R2pneW5GSVY0dGF1VzNZdjhESUdQZkcxQ2g3S2ZQWDc1Q2JQYjB4bFYrTkVPZ2pxbis1OXlQUUVtcTNHT1k1WFFTUUErVVJOTHVGTGV3eHE5M3RabUxhbkIzc1FlNHpGMXVGRTlITyJ9). VMs are just moveable packs of what used to sit on a physical server. Their abstraction layer is the physical layer, while containers sit at the abstraction of the application layer. Many microservices in containers combine make up an application [[a]](https://goto.docker.com/rs/929-FJL-178/images/Docker-for-Virtualization-Admin-eBook.pdf?mkt_tok=eyJpIjoiWm1FM09HRTROREF5TW1abSIsInQiOiJGcnJNQWFQRWVTSEh1YjBnanJIc0hVOWV5R2pneW5GSVY0dGF1VzNZdjhESUdQZkcxQ2g3S2ZQWDc1Q2JQYjB4bFYrTkVPZ2pxbis1OXlQUUVtcTNHT1k1WFFTUUErVVJOTHVGTGV3eHE5M3RabUxhbkIzc1FlNHpGMXVGRTlITyJ9). Despite contradictions, it is best interest of many organizations to integrate the two technology.
+
+### Integrating VMs and Containers
+
+
+### Comparison
 
 
 # Docker architecture concepts
@@ -34,7 +51,7 @@ Docker Objects are contents managed by Docker daemon. This section will cover on
 
 - #### Images
 
-  - Images reprensent the whole application (file system, libraries). Images can only run as containers, thus they are also template for constructing containers. 
+  - Images reprensent the whole program (file system, libraries). Images can only run as containers, thus they are also template for constructing containers. 
 
   - An image is usually built from a Dockerfile, which contains a set of commands to construct the app, e.g. create files, install libraries. Afterwards, an image is then compressed into a stack of read-only layers. [[a]](https://www.aquasec.com/wiki/display/containers/Docker+Images+101)
 
@@ -61,7 +78,7 @@ Docker Objects are contents managed by Docker daemon. This section will cover on
   - Containers are executable image instances, hence the ability to start, stop, delete or even exec into a running instance via Docker CLI or API. [[a]](https://docs.docker.com/engine/docker-overview/#docker-objects)
 
   - Containers characteristic
-    - _Lightweight_: Containers are just very lightweight VM instances, with a file system and limited methods for running images. They can be deployed in just matter of seconds. [[a]](https://www.aquasec.com/wiki/display/containers/Docker+Architecture)
+    - _Lightweight_: Containers are very lightweight since they are just images' compressed layers with an additional writable layer. They can be deployed in just matter of seconds. [[a]](https://www.docker.com/what-container#/package_software)
 
     - _Standard_: Unlike VM instances, containers are both hypervisor and OS independent. Containers can be deployed across multiple platforms and infrastructure, and yet they will function the same in every environment.
 
