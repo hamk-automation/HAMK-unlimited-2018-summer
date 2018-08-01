@@ -2,7 +2,7 @@
 
 ## Motivations
 
-The "Healthy Digital House" (Terveellinen Digitalo) project and the TOE-hanke project involves significant amount IOT data (Big Data) and datasources. The two projects involves an application base solution which includes storage, data handling, visulization and demonstrations. This application is a combined of several microservices which run on our local server. In the past and just until the last couple of months, our productions server were just two small machines sitting in an office in Valkeakoski. As a new physical server was installed in HAMK's Datacenter located in Hämeenlinna, we have to come up with a system that should not only be able to migrate our existing programs with most of their data, but also provide us a better way of managing our micro services.
+The "Healthy Digital House" (Terveellinen Digitalo) project and the TOE-hanke project involves significant amount IOT data (Big Data) and datasources. The two projects involves an application base solution which includes storage, data handling, visulization and demonstrations. This application is a combined of several microservices which run on our local server. In the past and just until the last couple of months, our production server were just two small machines sitting in an office in Valkeakoski. As a new physical server was installed in HAMK's Datacenter located in Hämeenlinna, we have to come up with a system that should not only be able to migrate our existing programs with most of their data, but also provide us a better way of managing our micro services.
 
 ## Our needs
 
@@ -13,9 +13,9 @@ Container is an amazing technology, because they are flexible and robust. Contai
 # Software solutions
 
 ## Virtual machines (VM) and containers
-![VMs and containers](https://twistlock2.wpengine.com/wp-content/uploads/2017/01/ContainerVsVM-1024x567.jpg)
+![VMs and containers](https://vmmasterblog.files.wordpress.com/2017/10/vic0.jpg?w=776)
 
-_Figure 1. VMs and containers infrastructures [(source)](https://twistlock2.wpengine.com/wp-content/uploads/2017/01/ContainerVsVM-1024x567.jpg)_
+_Figure 1. VMs and containers infrastructures [(source)](https://vmmasterblog.files.wordpress.com/2017/10/vic0.jpg?w=776)_
 
 ### The difference
 The two concept is best visulize by an analogy, as this [ebook](https://goto.docker.com/rs/929-FJL-178/images/Docker-for-Virtualization-Admin-eBook.pdf?mkt_tok=eyJpIjoiWm1FM09HRTROREF5TW1abSIsInQiOiJGcnJNQWFQRWVTSEh1YjBnanJIc0hVOWV5R2pneW5GSVY0dGF1VzNZdjhESUdQZkcxQ2g3S2ZQWDc1Q2JQYjB4bFYrTkVPZ2pxbis1OXlQUUVtcTNHT1k1WFFTUUErVVJOTHVGTGV3eHE5M3RabUxhbkIzc1FlNHpGMXVGRTlITyJ9) [[a]]() from Docker suggest: 
