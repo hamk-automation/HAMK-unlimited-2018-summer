@@ -13,9 +13,9 @@ Container is an amazing technology, because they are flexible and robust. Contai
 # Software solutions
 
 ## Virtual machines (VM) and containers
-![VMs and containers](https://vmmasterblog.files.wordpress.com/2017/10/vic0.jpg?w=776)
+![VMs and containers](https://twistlock2.wpengine.com/wp-content/uploads/2017/01/ContainerVsVM-1024x567.jpg)
 
-_Figure 1. VMs and containers infrastructures [(source)](https://vmmasterblog.files.wordpress.com/2017/10/vic0.jpg?w=776)_
+_Figure 1. VMs and containers infrastructures [(source)](https://twistlock2.wpengine.com/wp-content/uploads/2017/01/ContainerVsVM-1024x567.jpg)_
 
 ### The difference
 The two concept is best visulize by an analogy, as this [ebook](https://goto.docker.com/rs/929-FJL-178/images/Docker-for-Virtualization-Admin-eBook.pdf?mkt_tok=eyJpIjoiWm1FM09HRTROREF5TW1abSIsInQiOiJGcnJNQWFQRWVTSEh1YjBnanJIc0hVOWV5R2pneW5GSVY0dGF1VzNZdjhESUdQZkcxQ2g3S2ZQWDc1Q2JQYjB4bFYrTkVPZ2pxbis1OXlQUUVtcTNHT1k1WFFTUUErVVJOTHVGTGV3eHE5M3RabUxhbkIzc1FlNHpGMXVGRTlITyJ9) [[a]]() from Docker suggest: 
