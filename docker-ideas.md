@@ -3,7 +3,7 @@
 ### Software solutions
 VM and containers
 - ~~The difference~~
-- Integrating VMs and containers
+- ~~Integrating VMs and containers~~
 
 ### Docker architecture concepts 
  
