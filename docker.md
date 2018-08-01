@@ -10,6 +10,8 @@ These mentioned features of an orchestration system is important as not only do 
 ## Virtual machines (VM) and containers
 ![VMs and containers](https://twistlock2.wpengine.com/wp-content/uploads/2017/01/ContainerVsVM-1024x567.jpg)
 
+_Figure 1. VMs and containers infrastructures [(source)](https://twistlock2.wpengine.com/wp-content/uploads/2017/01/ContainerVsVM-1024x567.jpg)_
+
 ### The difference
 The two concept is best visulize by an analogy, as this [ebook](https://goto.docker.com/rs/929-FJL-178/images/Docker-for-Virtualization-Admin-eBook.pdf?mkt_tok=eyJpIjoiWm1FM09HRTROREF5TW1abSIsInQiOiJGcnJNQWFQRWVTSEh1YjBnanJIc0hVOWV5R2pneW5GSVY0dGF1VzNZdjhESUdQZkcxQ2g3S2ZQWDc1Q2JQYjB4bFYrTkVPZ2pxbis1OXlQUUVtcTNHT1k1WFFTUUErVVJOTHVGTGV3eHE5M3RabUxhbkIzc1FlNHpGMXVGRTlITyJ9) [[a]]() from Docker suggest: 
 
@@ -25,9 +27,19 @@ It is important to set a clear mind, that "Containers are not VMs" [[a]](https:/
 
 ### Integrating VMs and Containers
 
+#### Bare metal containers
+The argument of whether VMs could be replace by containers originates from the concepts of bare metal containers. These are containers running on a bare-metal server - a server with one OS. Without hypervisors and VMs instances, more physical resource can be dedicated to our application.
 
-### Comparison
+Many organizations and teams has carried out many performance test of containers running on VMs and bare-metal systems, and Stratoscale being one of which. Their [results](https://www.stratoscale.com/blog/containers/running-containers-on-bare-metal/) point out a consistant increased in performance for bare-metal containers, whether it was CPU or IO operations. In addition, open source minimalistic OS such as Container Linux, Project Atom and Ubuntu Core are now released, with the sole purpose of running only containers.
 
+#### VMs together with containers
+Despite a noticealbe performance boost, there are limitations in deploying bare-metal containers. These problems do not come from containers themselves, but rather the OS. The first problems is security. No matter how isolated containers are, they are more likely exposed to a breach since they all share them same host [[a]](https://searchservervirtualization.techtarget.com/feature/The-debate-isnt-containers-vs-VMs-its-how-to-best-integrate-them). The second problem is OS management. Operations like rollbacks, updates or even migration can be difficult without the helps of VMs tools [[a]](https://www.stratoscale.com/blog/containers/running-containers-on-bare-metal/).
+
+Although they have many drawbacks, VMs are still an efficient yet reliable options for managing servers, except for those organizations restricted by data security policy [[a]](https://www.stratoscale.com/blog/containers/running-containers-on-bare-metal/). Infact, containers have no problem running under VMs shared resources, and for small businesses, response time might not be one of their main concerns. Additionally, both Docker and VMware are heading towards this integration: VMware releases their version of minimalistic OS called Photon, and Docker suggests running their container anywhere you want.
+
+![Containers on VMs](https://www.docker.com/sites/default/files/containers-vms-together.png)
+
+_Figure 2. Containers on VMs [(source)](https://www.docker.com/sites/default/files/containers-vms-together.png)_
 
 # Docker architecture concepts
 
