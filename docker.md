@@ -132,7 +132,7 @@ _Figure 6. Docker container layer [(source)](https://docs.docker.com/storage/sto
 
 Docker uses a [Copy-on-write]() strategy, which allows its container to access the underlying read-only files from the image, modify them and then store these files on the top most layers. The original files are now obscured.
 
-The only disadvantage is that all data stored in this layer will be destroyed when the container is removed. Therefore, to persist data (save data), Docker provides volumes and bind mounts.
+All data stored in this writable layer will be destroyed when the container is removed. Therefore, to persist data (save data), Docker provides volumes and bind mounts.
 
 ### Bind mounts and Volumes
 
