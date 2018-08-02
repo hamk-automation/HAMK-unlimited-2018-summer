@@ -178,3 +178,8 @@ The use cases below for these two mounting types are well specified in the [Dock
 Communicating between different containerized apps could be a daunting task, since isolation is one of containers main feature. Fortunately, Docker takes care of their containers networking by default. Docker containers are powerful, because with the right network configuration, they can communicate with any other services and apps, whether they are containerized or not. 
 
 ### Docker networking
+
+Networking are managed with network drivers. Writing your own driver is possible, although Docker's drivers are good for most use cases [a](https://docs.docker.com/network/#network-drivers):
+- Bridge network: This is the default network for every containers without any specifications. Bridge is used when multiple containers need connecting on a single Docker host.
+- Host network: Host network is used when binding containers to the host IP address.
+- Overlay: When multiple containers on one or multiple swarm needs to communicate 
