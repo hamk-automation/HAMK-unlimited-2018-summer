@@ -11,20 +11,25 @@
   NordicID product Sampo S2 One-Series, as the RFID reader, provides powerful reading performance with multiple connectivity options. What makes this fixed UHF reader stand out from RFID devices of other companies is the way NordicID support their customers. In addition to human-friendly documentations on guidance, safety and regulation, drivers, firmware, they develop a user interface where you can find all information you might want to know about your running reader, from real-time system information, log files, hardware management to networking, system service, applications, etc.
 
   <div style="text-align:center"><img src ="https://www.nordicid.com/static/images/products/180917_nordiid_tuotekuvat_printti-21.png" alt="NordicID reader" width="400px" /></div>
+  Figure 1. NordicID RFID reader
 
   At the moment, two sensors are being used, giving data of three quantities including bales temperature, humidity, and location. Sparkfun Qwiic GPS Titan X1 is a GPS sensor that gives not only highly accurate GPS data but also other data under NMEA standard. Telaire Amphenol Advanced Sensors T9602 are fully calibrated and temperature compensated sensor of which resolutions are ±2% RH and ±0.3°C. These sensors are waterproof and can work well under harsh environment due to hay bale features. 
 
   <div style="text-align:center"><img src ="https://www.amphenol-sensors.com/images/stories/moisture-humidity/main-T9602-Mod-4.png" alt="telaire"/></div>
+  Figure 2. Telaire T9602 sensor
 
   <div style="text-align:center"><img src ="https://cdn.sparkfun.com//assets/parts/1/2/3/4/0/14414-02.jpg" alt="sparkfun" width="200px"/></div>
+  Figure 3. SparkFun GPS sensor
 
   Arduino Wemos D1 R2 Mini acquires data from sensors through I2C then publishes to Message Queuing Telemetry Transport (MQTT) broker hosted by Raspberry Pi. This is possible because the board has on it ESP8266 module, which connects to Wi-Fi network and makes simple TCP/IP connections.
 
   <div style="text-align:center"><img src ="https://hobbycomponents.com/2267-thickbox_default/wemos-d1-mini-pro-esp8266-development-board.jpg" alt="wemos" width="250px" /></div>
+  Figure 4. Wemos D1 R2 Mini
 
   Besides hosting MQTT broker, Raspberry Pi runs NodeRed which handles all messages published from Arduino and RFID reader, passes data to corresponding bales, and posts to database using HTTP requests. This will be explained more clearly later. 
 
   <div style="text-align:center"><img src ="https://prota.info/imgs/pages/prota/pi/content--meet_prota_pi-raspberry_pi.png" alt="pi" width="250px" /></div>
+  Figure 5. Raspberry Pi
 
 * ## Technical solutions
 
@@ -41,14 +46,24 @@
   Bank 3: User memory is where all other optional information is placed, such as temperature, date, manufacturer, etc. It sizes from 512 bits to 8K. 
 
   <div style="text-align:center"><img src ="https://rfid4u.com/wp-content/uploads/2016/02/EPC-Gen2-memory-banks.jpg" alt="memory bank" width="450px" /></div>
+  Figure 6. RFID tag memory bank
 
   After tags are read by reader and environment data is measured by sensors, they will be published to MQTT broker, to which NodeRed nodes subscribe. Data handling is done by nodes also. The main idea is that, after every tags on bale are read, all of them will be attached with the same new ID and other data. Due to that, later on, when farmer scans tags, all tags on the same ball will have exact identical information, avoiding confusion. The last stage is that this data will be added to database through HTTP POST request.
 
   <div style="text-align:center"><img src ="flow.png" alt="flow"/></div>
+  Figure 7. NodeRed flow
 
-  It is possible for the NodeRed flow on Raspberry Pi to communicate with the server is because of an Application Programming Interface (API) developed by project worker using Swagger. It is an open source software framework that allows user to design their own Representational (REST) APIs. Not only **POST** request to add new tag data to database, but our designed API is also capable of **DELETE**, **UPDATE**, **FIND**, **GET** data of desired tags from server, which will be realized in web service and smart phone application on later stage of the project.  
+  It is possible for the NodeRed flow on Raspberry Pi to communicate with the server is because of an Application Programming Interface (API) developed by project worker using Swagger. It is an open source software framework that allows user to design their own Representational (REST) APIs. Not only **POST** request to add new tag data to database, but our designed API is also capable of **DELETE**, **PUT**, **GET** data of desired tags from server, which will be realized in web service and smart phone application on later stage of the project.  
 
-  <div style="text-align:center"><img src ="swagger.PNG" alt="swagger"/></div>
+  <div style="margin: auto;"><img src="swagger.PNG" style="margin: auto;" alt="swagger"/></div>
+  Figure 8. Swagger
 
   ### Communication
   The communication protocol between devices is MQTT which is superior to other options because of its light-weightness, effectiveness and popularity. Advanced Message Queuing Protocol (AMQP) is simply a robust and large-scale of MQTT, which makes its reliability and interoperability redundant because each tag wrap process only requires four to five messages. Meanwhile, Streaming Text Oriented Messaging Protocol (STOMP) does not deal with topics but destination strings, with which brokers have to deal internally and leads to difficulty when porting code between brokers. Whereas, Constrained Appplication Protocol (CoAP), despite being more secured and having longer transmit cycle, allows only four types of messages (this of MQTT is 16), is less reliable, and sophisticated. With these being said, it is clear that MQTT is the most prime choice of all.
+
+* ## Implementation
+
+  With the idea being planned, a real RFID box was made and tested to be realized in farm field environment. For users to easily control the box, an two-button interface was aslo added. They are wired to two corresponding relay, which signals Arduino board to function rightly. Buttons work so that when the red one is pressed, the box starts publishing all recognized tags to MQTT broker. These data are saved under an array in NodeRed until environment information are published by pressing blue button. After that, NodeRed will automatically passing all sensors data to every single tag and post them to database via HTTP request. Besides baleID, temperature, humidity, longitude, latitude, a post includes time, size, weight, colour, dValue, farmID. Each tag is saved as an object of properties in database. As reading range is up to ten metres, the box can cover a large area and make sure not to miss any tag on bales.
+  
+
+  
