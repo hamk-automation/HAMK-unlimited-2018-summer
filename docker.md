@@ -171,3 +171,10 @@ The use cases below for these two mounting types are well specified in the [Dock
     A good example for this use case should be building and bundling a react app, and then deploy it inside a Docker container. This example is available at the later [project use case]() section.
 
 >**Notes:** Docker also provides tmpfs mounts for large sensitive data that do not need to persist. [Learn more here](https://docs.docker.com/storage/tmpfs/).
+
+
+## Networking and port mapping
+
+Communicating between different containerized apps could be a daunting task, since isolation is one of containers main feature. Fortunately, Docker takes care of their containers networking by default. Docker containers are powerful, because with the right network configuration, they can communicate with any other services and apps, whether they are containerized or not. 
+
+### Docker networking
