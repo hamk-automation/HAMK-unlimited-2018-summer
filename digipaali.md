@@ -63,7 +63,26 @@
 
 * ## Implementation
 
-  With the idea being planned, a real RFID box was made and tested to be realized in farm field environment. For users to easily control the box, an two-button interface was aslo added. They are wired to two corresponding relay, which signals Arduino board to function rightly. Buttons work so that when the red one is pressed, the box starts publishing all recognized tags to MQTT broker. These data are saved under an array in NodeRed until environment information are published by pressing blue button. After that, NodeRed will automatically passing all sensors data to every single tag and post them to database via HTTP request. Besides baleID, temperature, humidity, longitude, latitude, a post includes time, size, weight, colour, dValue, farmID. Each tag is saved as an object of properties in database. As reading range is up to ten metres, the box can cover a large area and make sure not to miss any tag on bales.
+  With the idea being planned, a real RFID box was made and tested to be realized in farm field environment. For users to easily control the box, a two-button interface was aslo added. They are wired to two corresponding relays, which signals Arduino board to function rightly. Buttons work so that when the red one is pressed, the box starts publishing all recognized tags to MQTT broker. These data are saved under an array in NodeRed until environment information are published by pressing blue button. After that, NodeRed will automatically passing all sensors data to every single tag and post them to database via HTTP request. Besides baleID, temperature, humidity, longitude, latitude, a post includes also time, size, weight, colour, dValue, farmID and so on. Each tag is saved as an object of properties in database. As reading range is up to ten metres, the box can cover a large area and make sure not to miss any tag on bales. Following are structure of mentioned data. More properties might be included later if necessary.
+
+  <div style="margin: auto;"><img src="mqtttag.PNG" style="margin: auto;" alt="swagger"/></div>
+  Figure 9. RFID tag
+
+  <div style="margin: auto;"><img src="sensordata.PNG" style="margin: auto;" alt="swagger"/></div>
+  Figure 10. Sensor data
+
+  <div style="margin: auto;"><img src="postrequest.PNG" style="margin: auto;" alt="swagger"/></div>
+  Figure 11. POST request
+
+  <div style="margin: auto;"><img src="data.PNG" style="margin: auto;" alt="swagger"/></div>
+  Figure 12. Data saved on database
+
+  The stage was successfully done and tested. From here, data will be utilized in next steps, where users are expected to view and work with designed interface on smartphone and website.
+
+
+
+
+
   
 
   
