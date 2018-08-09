@@ -3,7 +3,7 @@
 ### Software solutions
 VM and containers
 - ~~The difference~~
-- ~~Integrating VMs and containers~~
+- ~~Integrating VMs and containers~~        
 
 ### Docker architecture concepts 
  
@@ -19,8 +19,10 @@ VM and containers
 - ~~Data storage with Docker~~
     - ~~Container and image layers~~
     - ~~Bind mounts and volumes~~
-- Port mapping, networking
-- Services, clutering and security.
+- ~~Port mapping, networking~~
+    - ~~From a container perpective~~
+        - ~~Standalone container~~
+        - ~~For simple connections between containers~~
 
 ### Use case - HAMK iot.research.hamk.fi
 Docker used for service testing
