@@ -160,7 +160,7 @@ The use cases below for these two mounting types are well specified in the [Dock
 
 - #### Bind mounts:
   
-  - >"Sharing configuration files from the host machine to containers. This is how Docker provides DNS resolution to containers by default, by mounting /etc/resolv.conf from the host machine into each container."
+  - >"Sharing configuration files from the host machine to containers. This is how Docker provides DNS resolution to containers by default, by mounting /etc/resolv.conf from the host machine into each container." - [Docker, 2017](https://docs.docker.com/storage/)
   
   - Building artifacts or source code on host machine can be provided to containers in development process. Production built Dockerfile would only need to access the already built artifacts on host machine. 
   
@@ -171,11 +171,88 @@ The use cases below for these two mounting types are well specified in the [Dock
 
 ## Networking and port mapping
 
-Communicating between different containerized apps could be a daunting task, since isolation is one of containers main feature. Fortunately, Docker takes care of their containers networking by default. Docker containers are powerful, because with the right network configuration, they can communicate with any other services and apps, whether they are containerized or not. 
+Communicating between different containerized apps could be a daunting task, since isolation is one of containers main feature. Fortunately, Docker takes care of their containers networking by default. Docker containers are powerful, because with the right network configuration, they can communicate with any other services and apps, whether they are containerized or not [[a]](https://docs.docker.com/network/). 
 
 ### Docker networking
 
-Networking are managed with network drivers. Writing your own driver is possible, although Docker's drivers are good for most use cases [a](https://docs.docker.com/network/#network-drivers):
+Networking are managed with network drivers. Writing your own driver is possible, although Docker's drivers are good for most use cases [[a]](https://docs.docker.com/network/#network-drivers):
 - Bridge network: This is the default network for every containers without any specifications. Bridge is used when multiple containers need connecting on a single Docker host.
 - Host network: Host network is used when binding containers to the host IP address.
-- Overlay: When multiple containers on one or multiple swarm needs to communicate 
+- Overlay: When multiple containers on one or multiple swarm needs to communicate.
+
+We can list networks within Docker with the command in the following figure.
+
+```
+$ docker network ls
+
+NETWORK ID          NAME                DRIVER
+18a2866682b8        none                null
+c288470c46f6        host                host
+7b369448dccb        bridge              bridge
+```
+
+Figure 8. Docker network listing [(source)](https://docs.docker.com/engine/tutorials/networkingcontainers/)
+
+#### From a container perspective
+- #### For standalone containers
+  Single standalone containers can have their own ports publising to the outside network via the host ports. The following methods are very common in configuring a container network:
+
+  ##### Exposing and port mapping
+  Exposing ports from a container is equal to allowing a container to talk to the outside network via exposed ports. This can be done either with an ```EXPOSE``` command in a Dockerfile or by adding an ```--expose``` flag at a container's run command [[a]](https://www.ctl.io/developers/blog/post/docker-networking-rules/). 
+
+  ```
+  "NetworkSettings": {
+    "PortMapping": null,
+    "Ports": {
+        "1234/tcp": null
+    }
+  },
+  "Config": {
+    "ExposedPorts": {
+        "1234/tcp": {}
+    }
+  }
+  ```
+  
+  Figure 8. Exposed ports on a container on inspecting [(source)](https://www.ctl.io/developers/blog/post/docker-networking-rules/)
+
+  Expose method is used in conjuction with port mapping [[a]](https://www.ctl.io/developers/blog/post/docker-networking-rules/). For a container's ports to be mapped with host ports, a ```-p``` or ```-P``` flag is used. The ```-p``` flag helps the user define the mapping rule, while the ```-P``` flag does it automatically.
+
+  ```
+  $ docker run -dit --name nodered -p 1880:1880 mynodered
+  $ docker run -dit --name nodeRed -P mynodered
+  
+  ```
+
+  Figure 9. Container port mapping with ```-p``` and ```-P``` flags.
+
+  The above figure shown an example of running two node red instaces with their 1880 port exposed. The first example binds the host's 1880 port directly to the container, while the second example assigned a random port from the host.
+
+- #### For simple connections between containers
+
+  Since we were dockerizing one microservice at a time, a simple bridge connection was enough for our case. If not configured, containers are assigned to Docker default bridge network ```docker0```.
+
+  ![docker0](https://docs.docker.com/engine/tutorials/bridge1.png)
+  
+  Figure 11. Default bridge network 
+
+  We can see from the figure that the container has an ip address of ```172.17.0.2```. This is the results of Docker adjusting the host IP table. It is possible for a container to join many different networks. The following figure shown an example of a containerized web application connect to a database inside another container via a different network name ```my_bridge```. The web app are connected to two bridge networks at the same time.
+
+  ![Multiple bridge networks](https://docs.docker.com/engine/tutorials/bridge3.png)
+
+  Figure 12. Connecting to multiple networks [(source)](https://docs.docker.com/engine/tutorials/bridge3.png)
+
+  We can create a new bridge net work with command from the following figure.
+
+  ```
+  $ docker network create -d bridge my_bridge
+  ```
+
+  Figure 13. Create network command [(source)](https://docs.docker.com/engine/tutorials/networkingcontainers/#create-your-own-bridge-network)
+
+  The network type is defined by the -d flag, which is bridge in this case. At runtime, a container net work can be definded with a ```--net``` flag. Our database containers was started with ```--net   my_bridge```, so it uses this net work and ignore the default ```docker0```. Our web container network has a default network connection, and it was joined to ```my_bridge``` by the folling command:
+
+  ```
+  $ docker network connect my_bridge web
+  ```
+  
