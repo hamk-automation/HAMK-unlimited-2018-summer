@@ -79,6 +79,15 @@
 
   The stage was successfully done and tested. From here, data will be utilized in next steps, where users are expected to view and work with designed interface on smartphone and website.
 
+* ## Data usage
+
+  ### Bale finding
+  As RFID tags are now attached to bales, farmers can read information using portable RFID readers. For current project, we are using one produced also by NordicID, who supports customers with their ready-made smartphone applications available on Android as well as iOS. On these apps, users can find all tags in reading range of the reader. Single tag can be tracked if farmers want to know on which bale the tag is. Not only that, but it is also possible to change tags ID, provided users have authentication.
+
+  ### E-market and analysis potention
+  As mentioned earlier, all data will be displayed on a website, where bale owners can view the information. At the moment, the web contains a table of all tags saved in database, and their positions on map. However, later on, due to security issues, few tag properties will be only available to farm owners or accesses with special authorization. More importantly, users are expected to trade bales on here, which means all the stages from choosing products, contacting between sellers and buyers to making transaction will be digitalized. Along with that, all bale-related data under different categories such as: year of harvesting, type, crop, etc. will be logged for analysis. This means the project helps farmers not only to handle their hay bales easier at a time, but also to know how to get better hays in next seasons.
+
+**Looking at what has been done and plans for upcoming stages, it is clear that Digibale is a great step on agriculture digitalization. It reduces farmers' tasks yet execute them in an efficient, environment-friendly, and cost-saving way. Digibale is expected to lay the first stone for agriculture developments in the trend of Internet of Things.**
 
 
 
