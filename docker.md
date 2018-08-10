@@ -56,7 +56,7 @@ _Figure 1. Docker system architecture [(source)](https://docs.docker.com/engine/
 
 ### Docker daemon
 On a host machine, a docker daemon process manages all docker-related content, namely as containers, images, networks, volumes, etc. In other words, it is a server which is contantly listening to requests, either from host terminal via CLI interface, or via its own rest API from remote terminal.
-This whole concept (including docker daemon and its interfaces) is called Docker Engine.
+This whole concept (including docker daemon and its interfaces) is called Docker Engine. [[a]](https://docs.docker.com/engine/docker-overview/#docker-engine)
 
 ![Image of Docker Engine](https://docs.docker.com/engine/images/engine-components-flow.png)
 
@@ -275,3 +275,15 @@ For the TOE-hanke project, our application displays the heating process informat
 As our application is still under development, minimalizing the deploying downtime is one of our main concerns. Thus we have decided to serve it from inside a container, which can be deployed in seconds. In addition, deploying and managing multiple web app instances is pretty straightforward, and loadbalancing these apps is effortless. As we are new to this sort of approach, continuous intergration (CI) is off of our list. The current work flow from developing to deploying is as simple as it can get: after a new feature is released, the app is built into an image with a Dockerfile; this image is then executed inside container(s) on the server machine. 
 
 The Docker build process is no different than the normal build process. The application's code, written in Javascript, is bundled into a minified version of itself. This bundle is then serve with an NGINX server. From the Docker perspective, the code is first bundled from a NodeJS image, which is quite heavy. Then, the bundled code is copied into the lightweight base image of NGINX for serving, and the previous image is discarded. This multi-step build process is lean and is known as the multi-stage build. The final image is lightweight and capable of functioning itself with or without an external load balancer.
+
+## Parallel sensors data injections
+
+### Data collecting
+
+Both Digitalo and TOE-hanke projects rely heavily on collecting and handling data from sensors. Telegraf has always been our preferred agent for metric collecting, since it supports multiple protocols as plugins, with MQTT being one of them. All collected data is then injected into our time series database - Influxdb, although using different databases is possible, as long as they support Telegraf. In the past, our Telegraf instance has been collecting a significant amount arbitrary sensor data input as well as many of our server operating metrics. Every time a new set of data is ready for injections, it is most likely that Telegraf has to be reconfigured. Touching Telegraf's configuration file without much care or knowledge of previous configurations can affect data collecting. It is to our best interested that we could find a way to separate these streams of inputs.
+
+### Containerized Telegraf instances
+
+It is simple to create many Telegraf instances with containers, each with its own configuration file. New data sets can now have their own collecting agent without awareness of other input streams. Telegraf configuration files are very easy to prepared. They could be generated and edited from within the containers. Existing configuration files on the host can also be mounted onto a container at runtime.
+
+One more powerful feature of containers is connection. Telegraf instances do not need to be aware whether if they are running under Docker or not. These instances can connect easily with other Docker and non Docker workloads without a problem. One particular problem that came along when we started using Docker is that firewalls rules are being ignore since Docker manipulates our machine IP table. Howerver, we have overcome this issue by binding our Docker connections straight to our host machine root IP address of ```127.0.0.1```
