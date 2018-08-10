@@ -234,7 +234,7 @@ Figure 8. Docker network listing [(source)](https://docs.docker.com/engine/tutor
 
   ![docker0](https://docs.docker.com/engine/tutorials/bridge1.png)
   
-  Figure 11. Default bridge network 
+  Figure 11. Default bridge network [(source)](https://docs.docker.com/engine/tutorials/bridge1.png)
 
   We can see from the figure that the container has an ip address of ```172.17.0.2```. This is the results of Docker adjusting the host IP table. It is possible for a container to join many different networks. The following figure shown an example of a containerized web application connect to a database inside another container via a different network name ```my_bridge```. The web app are connected to two bridge networks at the same time.
 
@@ -255,4 +255,21 @@ Figure 8. Docker network listing [(source)](https://docs.docker.com/engine/tutor
   ```
   $ docker network connect my_bridge web
   ```
-  
+
+# Use cases - HAMK iot.research.hamk.fi
+
+## Improving development and deployment process
+
+### TOE-hanke user interface architechture
+
+Our user interface mimics the Model View Controller (MVC) pattern. The following figure from Mozilla Developer Network (MDN) demonstrate a shopping list app under the MVC architechture.
+
+![MVC](https://mdn.mozillademos.org/files/16042/model-view-controller-light-blue.png)
+
+Figure 14. An MVC architechture example [(source)](https://mdn.mozillademos.org/files/16042/model-view-controller-light-blue.png)
+
+For the TOE-hanke project, our application displays the heating process information such as temperature, pressure, energy consumption, etc. as the view. After logging in, authorized users can control somewhat the process, for example, turning pumps on and off. These user's inputs are sent to the controller, in our case a Node-RED server. Node-RED then tell PLCs to execute the desired tasks. Informations from the field is then sent back to our Node-RED server, which could now be concern as a model for sending data back to our view. All connections from the web app to Node-RED is done through the MQTT protocol, while PLCs send their data via the OPC-UA protocol. The TOE-hanke web app is currently available at ["https://iot.research.hamk.fi/toehanke"](https://iot.research.hamk.fi/toehanke). At the moment, our website is implementing authentication based on HAMK's Lightweight Directory Acess Protocol (LDAP).
+
+### Deployed with Docker
+
+As our application is still under development, minimalizing the deploying downtime is one of our main concerns. Thus we have decided to serve it from inside a container, which can be deployed in seconds. In addition, deploying and managing multiple web app instances is pretty straightforward, and loadbalancing these apps is effortless. As we are new to this sort of approach, continuous intergration (CI) is off of our list. The current work flow from developing to deploying is as simple as it can get: 
