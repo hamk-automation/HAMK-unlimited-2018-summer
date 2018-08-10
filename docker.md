@@ -2,13 +2,13 @@
 
 ## Motivations
 
-The "Healthy Digital House" (Terveellinen Digitalo) project and the TOE-hanke project involves significant amount IOT data (Big Data) and datasources. The two projects involves an application base solution which includes storage, data handling, visulization and demonstrations. This application is a combined of several microservices which run on our local server. In the past and just until the last couple of months, our production server were just two small machines sitting in an office in Valkeakoski. As a new physical server was installed in HAMK's Datacenter located in Hämeenlinna, we have to come up with a system that should not only be able to migrate our existing programs with most of their data, but also provide us a better way of managing our micro services.
+The "Healthy Digital House" (Terveellinen Digitalo) project and the TOE-hanke project involves a significant amount of IOT data (Big Data) and data sources. The two projects involve an application base solution which includes storage, data handling, visualization and demonstrations. This application is a combined of several microservices which run on our local server. In the past and just until the last couple of months, our production server was just two small machines sitting in an office in Valkeakoski. As a new physical server was installed in HAMK's Datacenter located in Hämeenlinna, we have to come up with a system that should not only be able to migrate our existing programs with most of their data, but also provide us a better way of managing our microservices.
 
 ## Our needs
 
-One important aspect we are heading for is scalability. For now, both projects are using only one server with one OS instance. In the past, scalling this server was only done vertically, which means adding more capacity and memory within one OS. Since all of our applications are also within that OS, we have no problem giving them more space. However, as our project grows cloud storage and horizontal scalling are the next two options. Cloud storage demands less infrastructure, but yet it provides as much as the service provides, while horizontal scalling involves joining multiple server into one cluster. Applications should now be able to allocate on any machine within a cluster or in a remote machine and still have access to all the data they need if necessary. This challenge raises the need for containerized applications and an orchestration system.
+One important aspect we are heading for is scalability. For now, both projects are using only one server with one OS instance. In the past, scaling this server was only done vertically, which means adding more capacity and memory within one OS. Since all of our applications are also within that OS, we have no problem giving them more space. However, as our project grows cloud storage and horizontal scaling are the next two options. Cloud storage demands less infrastructure, but yet it provides as much as the service provides, while horizontal scaling involves joining multiple servers into one cluster. Applications should now be able to allocate on any machine within a cluster or in a remote machine and still have access to all the data they need if necessary. This challenge raises the need for containerized applications and an orchestration system.
 
-Container is an amazing technology, because they are flexible and robust. Containerized apps are deployed within seconds, and they function regardless of the environment and infrastructure we provide. In an ideal situation, all of our containerize apps would be stateless, meaning they do not contain any data, but rather all data is stored somewhere else. Only these data need to be migrated for our migration task to complete. Containerized apps is also the answer for an improved and optimized workflow. Since containers can be shared and deployed quickly, they close the gap between Dev and Ops (Development and Operations). At the time of writing this document, our current server is still young and expansion is yet to come, thus orchestration will not be our main target. Instead, we focus on bringing a closer look on containerizing apps.
+The container is an amazing technology because they are flexible and robust. Containerized apps are deployed within seconds, and they function regardless of the environment and infrastructure we provide. In an ideal situation, all of our containerize apps would be stateless, meaning they do not contain any data, but rather all data is stored somewhere else. Only these data need to be migrated for our migration task to complete. Containerized apps are also the answer for an improved and optimized workflow. Since containers can be shared and deployed quickly, they close the gap between Dev and Ops (Development and Operations). At the time of writing this document, our current server is still young and expansion is yet to come, thus orchestration will not be our main target. Instead, we focus on bringing a closer look at containerizing apps.
 
 # Software solutions
 
@@ -24,31 +24,27 @@ The two concept is best visulize by an analogy, as this [ebook](https://goto.doc
 use here at Docker is comparing houses (virtual machines) to
 apartments (Docker containers)." (Docker, 2016)
 
-Virtual machines as houses are well protected against unwanted guests and have their own infrastructures. Since VMs are built from fully powered operating system, quite often they are under used in smaller projects, and excessive feature might not be possible to remove.
+Virtual machines as houses are well protected against unwanted guests and have their own infrastructures. Since VMs are built from fully powered operating systems, quite often they are underused in smaller projects, and excessive feature might not be possible to remove.
 
-Containers, represented by apartments, also provide protection, but they also share the same underlying infrastructure (provided by the Docker host) such as electricity, water, gas, etc. Containers are buitl with the opposite direction of VMs, in which they only get what developers need.
+Containers, represented by apartments, also provide protection, but they also share the same underlying infrastructure (provided by the Docker host) such as electricity, water, gas, etc. Containers are built in the opposite direction of VMs, in which they only get what developers need.
 
-It is important to set a clear mind, that "Containers are not VMs" [[a]](https://goto.docker.com/rs/929-FJL-178/images/Docker-for-Virtualization-Admin-eBook.pdf?mkt_tok=eyJpIjoiWm1FM09HRTROREF5TW1abSIsInQiOiJGcnJNQWFQRWVTSEh1YjBnanJIc0hVOWV5R2pneW5GSVY0dGF1VzNZdjhESUdQZkcxQ2g3S2ZQWDc1Q2JQYjB4bFYrTkVPZ2pxbis1OXlQUUVtcTNHT1k1WFFTUUErVVJOTHVGTGV3eHE5M3RabUxhbkIzc1FlNHpGMXVGRTlITyJ9). VMs are just moveable packs of what used to sit on a physical server. Their abstraction layer is the physical layer, while containers sit at the abstraction of the application layer. Many microservices in containers combine make up an application [[a]](https://goto.docker.com/rs/929-FJL-178/images/Docker-for-Virtualization-Admin-eBook.pdf?mkt_tok=eyJpIjoiWm1FM09HRTROREF5TW1abSIsInQiOiJGcnJNQWFQRWVTSEh1YjBnanJIc0hVOWV5R2pneW5GSVY0dGF1VzNZdjhESUdQZkcxQ2g3S2ZQWDc1Q2JQYjB4bFYrTkVPZ2pxbis1OXlQUUVtcTNHT1k1WFFTUUErVVJOTHVGTGV3eHE5M3RabUxhbkIzc1FlNHpGMXVGRTlITyJ9). Despite contradictions, it is best interest of many organizations to integrate the two technology.
+It is important to set a clear mind, that "Containers are not VMs" [[a]](https://goto.docker.com/rs/929-FJL-178/images/Docker-for-Virtualization-Admin-eBook.pdf?mkt_tok=eyJpIjoiWm1FM09HRTROREF5TW1abSIsInQiOiJGcnJNQWFQRWVTSEh1YjBnanJIc0hVOWV5R2pneW5GSVY0dGF1VzNZdjhESUdQZkcxQ2g3S2ZQWDc1Q2JQYjB4bFYrTkVPZ2pxbis1OXlQUUVtcTNHT1k1WFFTUUErVVJOTHVGTGV3eHE5M3RabUxhbkIzc1FlNHpGMXVGRTlITyJ9). VMs are just moveable packs of what used to sit on a physical server. Their abstraction layer is the physical layer, while containers sit at the abstraction of the application layer. Many microservices in containers combine to make up an application [[a]](https://goto.docker.com/rs/929-FJL-178/images/Docker-for-Virtualization-Admin-eBook.pdf?mkt_tok=eyJpIjoiWm1FM09HRTROREF5TW1abSIsInQiOiJGcnJNQWFQRWVTSEh1YjBnanJIc0hVOWV5R2pneW5GSVY0dGF1VzNZdjhESUdQZkcxQ2g3S2ZQWDc1Q2JQYjB4bFYrTkVPZ2pxbis1OXlQUUVtcTNHT1k1WFFTUUErVVJOTHVGTGV3eHE5M3RabUxhbkIzc1FlNHpGMXVGRTlITyJ9). Despite contradictions, it is in the best interest of many organizations to integrate the two technology.
 
 ### Integrating VMs and Containers
 
 #### Bare metal containers
-The argument of whether VMs could be replace by containers originates from the concepts of bare metal containers. These are containers running on a bare-metal server - a server with one OS. Without hypervisors and VMs instances, more physical resource can be dedicated to our application.
+The argument of whether VMs could be replaced by containers originates from the concepts of bare metal containers. These are containers running on a bare-metal server - a server with one OS. Without hypervisors and VMs instances, more physical resource can be dedicated to our application.
 
-Many organizations and teams has carried out many performance test of containers running on VMs and bare-metal systems, and Stratoscale being one of which. Their [results](https://www.stratoscale.com/blog/containers/running-containers-on-bare-metal/) point out a consistant increased in performance for bare-metal containers, whether it was CPU or IO operations. In addition, open source minimalistic OS such as Container Linux, Project Atom and Ubuntu Core are now released, with the sole purpose of running only containers.
+Many organizations and teams have carried out many performance tests of containers running on VMs and bare-metal systems, and Stratoscale being one of which. Their [results](https://www.stratoscale.com/blog/containers/running-containers-on-bare-metal/) point out a consistent increased in performance for bare-metal containers, whether it was CPU or IO operations. In addition, open source minimalistic OSs are now released such as Container Linux, Project Atom, Ubuntu Core, etc, with the sole purpose of running only containers.
 
 #### VMs together with containers
-Despite a noticealbe performance boost, there are limitations in deploying bare-metal containers. These problems do not come from containers themselves, but rather the OS. The first problems is security. No matter how isolated containers are, they are more likely exposed to a breach since they all share them same host [[a]](https://searchservervirtualization.techtarget.com/feature/The-debate-isnt-containers-vs-VMs-its-how-to-best-integrate-them). The second problem is OS management. Operations like rollbacks, updates or even migration can be difficult without the helps of VMs tools [[a]](https://www.stratoscale.com/blog/containers/running-containers-on-bare-metal/).
+Despite a noticeable performance boost, there are limitations in deploying bare-metal containers. These problems do not come from containers themselves, but rather the OS. The first problem is security. No matter how isolated containers are, they are more likely exposed to a breach since they all share the same host [[a]](https://searchservervirtualization.techtarget.com/feature/The-debate-isnt-containers-vs-VMs-its-how-to-best-integrate-them). The second problem is OS management. Operations like rollbacks, updates or even migration can be difficult without the helps of VMs tools [[a]](https://www.stratoscale.com/blog/containers/running-containers-on-bare-metal/).
 
-Although they have many drawbacks, VMs are still an efficient yet reliable options for managing servers, except for those organizations restricted by data security policy [[a]](https://www.stratoscale.com/blog/containers/running-containers-on-bare-metal/). Infact, containers have no problem running under VMs shared resources, and for small businesses, response time might not be one of their main concerns. Additionally, both Docker and VMware are heading towards this integration: VMware releases their version of minimalistic OS called Photon, and Docker suggests running their container anywhere you want.
+Although they have many drawbacks, VMs are still an efficient yet reliable options for managing servers, except for those organizations restricted by data security policy [[a]](https://www.stratoscale.com/blog/containers/running-containers-on-bare-metal/). In fact, containers have no problem running under VMs shared resources, and for small businesses, response time might not be one of their main concerns. Additionally, both Docker and VMware are heading towards this integration: VMware releases their version of minimalistic OS called Photon, and Docker suggests running their container anywhere you want.
 
 ![Containers on VMs](https://www.docker.com/sites/default/files/containers-vms-together.png)
 
 _Figure 2. Containers on VMs [(source)](https://www.docker.com/sites/default/files/containers-vms-together.png)_
-
-## Our preferred solution
-
-At the start of this project, our production server at HAMK Valkeakoski was already hosting multiple services
 
 # Docker architecture concepts
 
@@ -164,10 +160,99 @@ The use cases below for these two mounting types are well specified in the [Dock
 
 - #### Bind mounts:
   
-  - >"Sharing configuration files from the host machine to containers. This is how Docker provides DNS resolution to containers by default, by mounting /etc/resolv.conf from the host machine into each container."
+  - >"Sharing configuration files from the host machine to containers. This is how Docker provides DNS resolution to containers by default, by mounting /etc/resolv.conf from the host machine into each container." - [Docker, 2017](https://docs.docker.com/storage/)
   
   - Building artifacts or source code on host machine can be provided to containers in development process. Production built Dockerfile would only need to access the already built artifacts on host machine. 
   
     A good example for this use case should be building and bundling a react app, and then deploy it inside a Docker container. This example is available at the later [project use case]() section.
 
 >**Notes:** Docker also provides tmpfs mounts for large sensitive data that do not need to persist. [Learn more here](https://docs.docker.com/storage/tmpfs/).
+
+
+## Networking and port mapping
+
+Communicating between different containerized apps could be a daunting task, since isolation is one of containers main feature. Fortunately, Docker takes care of their containers networking by default. Docker containers are powerful, because with the right network configuration, they can communicate with any other services and apps, whether they are containerized or not [[a]](https://docs.docker.com/network/). 
+
+### Docker networking
+
+Networking are managed with network drivers. Writing your own driver is possible, although Docker's drivers are good for most use cases [[a]](https://docs.docker.com/network/#network-drivers):
+- Bridge network: This is the default network for every containers without any specifications. Bridge is used when multiple containers need connecting on a single Docker host.
+- Host network: Host network is used when binding containers to the host IP address.
+- Overlay: When multiple containers on one or multiple swarm needs to communicate.
+
+We can list networks within Docker with the command in the following figure.
+
+```
+$ docker network ls
+
+NETWORK ID          NAME                DRIVER
+18a2866682b8        none                null
+c288470c46f6        host                host
+7b369448dccb        bridge              bridge
+```
+
+Figure 8. Docker network listing [(source)](https://docs.docker.com/engine/tutorials/networkingcontainers/)
+
+#### From a container perspective
+- #### For standalone containers
+  Single standalone containers can have their own ports publising to the outside network via the host ports. The following methods are very common in configuring a container network:
+
+  ##### Exposing and port mapping
+  Exposing ports from a container is equal to allowing a container to talk to the outside network via exposed ports. This can be done either with an ```EXPOSE``` command in a Dockerfile or by adding an ```--expose``` flag at a container's run command [[a]](https://www.ctl.io/developers/blog/post/docker-networking-rules/). 
+
+  ```
+  "NetworkSettings": {
+    "PortMapping": null,
+    "Ports": {
+        "1234/tcp": null
+    }
+  },
+  "Config": {
+    "ExposedPorts": {
+        "1234/tcp": {}
+    }
+  }
+  ```
+  
+  Figure 8. Exposed ports on a container on inspecting [(source)](https://www.ctl.io/developers/blog/post/docker-networking-rules/)
+
+  Expose method is used in conjuction with port mapping [[a]](https://www.ctl.io/developers/blog/post/docker-networking-rules/). For a container's ports to be mapped with host ports, a ```-p``` or ```-P``` flag is used. The ```-p``` flag helps the user define the mapping rule, while the ```-P``` flag does it automatically.
+
+  ```
+  $ docker run -dit --name nodered -p 1880:1880 mynodered
+  $ docker run -dit --name nodeRed -P mynodered
+  
+  ```
+
+  Figure 9. Container port mapping with ```-p``` and ```-P``` flags.
+
+  The above figure shown an example of running two node red instaces with their 1880 port exposed. The first example binds the host's 1880 port directly to the container, while the second example assigned a random port from the host.
+
+- #### For simple connections between containers
+
+  Since we were dockerizing one microservice at a time, a simple bridge connection was enough for our case. If not configured, containers are assigned to Docker default bridge network ```docker0```.
+
+  ![docker0](https://docs.docker.com/engine/tutorials/bridge1.png)
+  
+  Figure 11. Default bridge network 
+
+  We can see from the figure that the container has an ip address of ```172.17.0.2```. This is the results of Docker adjusting the host IP table. It is possible for a container to join many different networks. The following figure shown an example of a containerized web application connect to a database inside another container via a different network name ```my_bridge```. The web app are connected to two bridge networks at the same time.
+
+  ![Multiple bridge networks](https://docs.docker.com/engine/tutorials/bridge3.png)
+
+  Figure 12. Connecting to multiple networks [(source)](https://docs.docker.com/engine/tutorials/bridge3.png)
+
+  We can create a new bridge net work with command from the following figure.
+
+  ```
+  $ docker network create -d bridge my_bridge
+  ```
+
+  Figure 13. Create network command [(source)](https://docs.docker.com/engine/tutorials/networkingcontainers/#create-your-own-bridge-network)
+
+  The network type is defined by the -d flag, which is bridge in this case. At runtime, a container net work can be definded with a ```--net``` flag. Our database containers was started with ```--net   my_bridge```, so it uses this net work and ignore the default ```docker0```. Our web container network has a default network connection, and it was joined to ```my_bridge``` by the folling command:
+
+  ```
+  $ docker network connect my_bridge web
+  ```
+  
